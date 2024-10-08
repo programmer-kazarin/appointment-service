@@ -1,3 +1,4 @@
+[![Java CI with Maven](https://github.com/programmer-kazarin/appointment-service/actions/workflows/maven.yml/badge.svg)](https://github.com/programmer-kazarin/appointment-service/actions/workflows/maven.yml)
 # appointment-service - Backend для сервиса записи на прием
 # Перед запуском локально
 1. Создать БД appointment_db схему appointment и прописать креды в application.yml
