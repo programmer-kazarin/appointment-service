@@ -8,3 +8,7 @@ docker run --name appointment-postgres -p 5432:5432 -e POSTGRES_DB=appointment_d
 ```sql
 create schema appointment;
 ```
+# Run checkstyle
+```bash
+ mvn checkstyle:check
+```
