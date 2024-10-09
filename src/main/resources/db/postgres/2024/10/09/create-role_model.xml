@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Kazarin" id="role_model-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role_model"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Роли сотрудников" tableName="role_model">
+            <column name="id" type="SERIAL" remarks="Идентификатор роли">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(10)" remarks="Название роли">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1024)" remarks="Описание роли"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kazarin" id="fill-role_model-01">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(1) FROM role_model;</sqlCheck>
+        </preConditions>
+        <sql splitStatements="true">
+            INSERT INTO role_model("name", description)
+            VALUES('admin', 'Может просматривать, добавлять и удалять сотрудников'),
+            ('doctor', 'Может просматривать свои записи на прием'),
+            ('dispatcher', 'Может назначать и редоктировать записи на прием');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
