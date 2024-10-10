@@ -13,3 +13,5 @@ create schema appointment;
 ```bash
  mvn checkstyle:check
 ```
+# Swagger
+[swagger-ui](http://localhost:8080/swagger-ui/index.html)
