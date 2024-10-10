@@ -1,5 +1,6 @@
 package com.kazarin.appointment.service;
 
+import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.RoleModel;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import com.kazarin.appointment.service.impl.RoleModelServiceImpl;
@@ -31,11 +32,9 @@ class RoleModelServiceTest {
 
     @Test
     public void findAllTest() {
-        RoleModel role = new RoleModel();
-        role.setId(1L);
-        role.setName("admin");
-        role.setDescription("description");
+        RoleModel role = new RoleModel(1L, "admin", "description");
         when(roleModelRepo.findAll()).thenReturn(List.of(role));
-        Assertions.assertArrayEquals(List.of(role).toArray(), roleModelService.findAll().toArray());
+        Assertions.assertArrayEquals(List.of(RoleModelDto.builder().id(1l).name("admin").description("description").build()).toArray(),
+                roleModelService.findAll().toArray());
     }
 }
