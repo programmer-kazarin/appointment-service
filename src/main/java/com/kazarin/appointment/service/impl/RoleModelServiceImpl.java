@@ -1,6 +1,6 @@
 package com.kazarin.appointment.service.impl;
 
-import com.kazarin.appointment.entity.RoleModel;
+import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import com.kazarin.appointment.service.RoleModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,8 @@ public class RoleModelServiceImpl implements RoleModelService {
 
     @Override
     @Transactional(propagation = Propagation.NEVER)
-    public List<RoleModel> findAll() {
-        return roleModelRepo.findAll();
+    public List<RoleModelDto> findAll() {
+        return roleModelRepo.findAll().stream()
+                .map(role -> new RoleModelDto(role.getId(), role.getName(), role.getDescription())).toList();
     }
 }

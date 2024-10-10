@@ -1,5 +1,6 @@
 package com.kazarin.appointment.controller;
 
+import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.RoleModel;
 import com.kazarin.appointment.service.RoleModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class RoleModelController {
     private RoleModelService roleModelService;
 
     @GetMapping("/roles")
-    List<RoleModel> findAll() {
+    List<RoleModelDto> findAll() {
         return roleModelService.findAll();
     }
 }
