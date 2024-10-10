@@ -1,7 +1,15 @@
 package com.kazarin.appointment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class RoleModelDto {
     @JsonProperty("roleId")
     private Long id;
@@ -9,37 +17,4 @@ public class RoleModelDto {
     private String name;
     @JsonProperty("roleDescription")
     private String description;
-
-    public RoleModelDto() {
-    }
-
-    public RoleModelDto(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

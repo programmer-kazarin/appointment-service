@@ -19,6 +19,10 @@ public class RoleModelServiceImpl implements RoleModelService {
     @Transactional(propagation = Propagation.NEVER)
     public List<RoleModelDto> findAll() {
         return roleModelRepo.findAll().stream()
-                .map(role -> new RoleModelDto(role.getId(), role.getName(), role.getDescription())).toList();
+                .map(role -> RoleModelDto.builder()
+                        .id(role.getId())
+                        .name(role.getName())
+                        .description(role.getDescription())
+                        .build()).toList();
     }
 }
