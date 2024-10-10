@@ -4,16 +4,12 @@ import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.RoleModel;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class RoleModelServiceTest {
