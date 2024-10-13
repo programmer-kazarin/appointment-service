@@ -1,8 +1,10 @@
 package com.kazarin.appointment.service.impl;
 
 import com.kazarin.appointment.dto.RoleModelDto;
+import com.kazarin.appointment.entity.RoleModelEntity;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import com.kazarin.appointment.service.RoleModelService;
+import com.kazarin.appointment.utils.EntityToDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,16 @@ public class RoleModelServiceImpl implements RoleModelService {
     private RoleModelRepo roleModelRepo;
 
     @Override
-    @Transactional(propagation = Propagation.NEVER)
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public List<RoleModelDto> findAll() {
         log.debug("getting all roles");
         return roleModelRepo.findAll().stream()
-                .map(role -> RoleModelDto.builder()
-                        .id(role.getId())
-                        .name(role.getName())
-                        .description(role.getDescription())
-                        .build()).toList();
+                .map(EntityToDto::convertRole)
+                .toList();
+    }
+
+    @Override
+    public RoleModelEntity findByName(String roleName) {
+        return roleModelRepo.findByName(roleName);
     }
 }
