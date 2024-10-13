@@ -1,7 +1,6 @@
 package com.kazarin.appointment.controller;
 
 import com.kazarin.appointment.dto.RoleModelDto;
-import com.kazarin.appointment.entity.RoleModel;
 import com.kazarin.appointment.service.RoleModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package com.kazarin.appointment.service;
 
 import com.kazarin.appointment.dto.RoleModelDto;
-import com.kazarin.appointment.entity.RoleModel;
+import com.kazarin.appointment.entity.RoleModelEntity;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +32,8 @@ class RoleModelServiceTest {
     @Test
     public void findAllTest_full() {
         roleModelRepo.saveAll(List.of(
-                RoleModel.builder().name("test1").description("test1").build(),
-                RoleModel.builder().name("test2").description("test2").build()));
+                RoleModelEntity.builder().name("test1").description("test1").build(),
+                RoleModelEntity.builder().name("test2").description("test2").build()));
         List<RoleModelDto> actual = roleModelService.findAll();
         Assertions.assertEquals(2, actual.size());
     }
