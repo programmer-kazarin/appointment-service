@@ -1,6 +1,7 @@
 package com.kazarin.appointment.service.impl;
 
 import com.kazarin.appointment.dto.EmployeeDto;
+import com.kazarin.appointment.dto.EmployeeMobileDto;
 import com.kazarin.appointment.entity.EmployeeEntity;
 import com.kazarin.appointment.repo.EmployeeRepo;
 import com.kazarin.appointment.service.EmployeeService;
@@ -32,9 +33,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Optional<EmployeeDto> getEmployeeById(Long id) {
         Optional<EmployeeEntity> employee = employeeRepo.findById(id);
         return employee.map(EntityToDto::convertEmployee);
+    }
+
+    @Override
+    public Optional<EmployeeMobileDto> getEmployeeByIdForMobile(Long id) {
+        Optional<EmployeeEntity> employee = employeeRepo.findById(id);
+        return employee.map(EntityToDto::convertEmployeeForMobile);
     }
 
     @Override

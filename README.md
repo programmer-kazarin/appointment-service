@@ -14,4 +14,4 @@ create schema appointment;
  mvn checkstyle:check
 ```
 # Swagger
-[swagger-ui](http://localhost:8080/swagger-ui/index.html)
+[swagger-ui](http://localhost:8080/appointment-service/swagger-ui/index.html)

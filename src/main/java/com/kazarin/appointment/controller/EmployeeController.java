@@ -1,6 +1,7 @@
 package com.kazarin.appointment.controller;
 
 import com.kazarin.appointment.dto.EmployeeDto;
+import com.kazarin.appointment.dto.EmployeeMobileDto;
 import com.kazarin.appointment.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,15 @@ public class EmployeeController {
         return employeeService.findAll();
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/ui/employees/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id) {
         Optional<EmployeeDto> employeeDto = employeeService.getEmployeeById(id);
+        return employeeDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/mobile/employees/{id}")
+    public ResponseEntity<EmployeeMobileDto> getEmployeeByIdForMobile(@PathVariable Long id) {
+        Optional<EmployeeMobileDto> employeeDto = employeeService.getEmployeeByIdForMobile(id);
         return employeeDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

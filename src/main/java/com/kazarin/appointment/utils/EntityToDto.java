@@ -1,6 +1,7 @@
 package com.kazarin.appointment.utils;
 
 import com.kazarin.appointment.dto.EmployeeDto;
+import com.kazarin.appointment.dto.EmployeeMobileDto;
 import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.EmployeeEntity;
 import com.kazarin.appointment.entity.RoleModelEntity;
@@ -23,6 +24,14 @@ public class EntityToDto {
                 .id(employee.getId())
                 .fio(employee.getFio())
                 .role(employee.getRole().getName())
+                .build();
+    }
+
+    public static EmployeeMobileDto convertEmployeeForMobile(EmployeeEntity employee) {
+        return EmployeeMobileDto.builder()
+                .id(employee.getId())
+                .fio(employee.getFio())
+                .role(convertRole(employee.getRole()))
                 .build();
     }
 }

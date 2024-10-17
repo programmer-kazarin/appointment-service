@@ -4,24 +4,18 @@ import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.RoleModelEntity;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
+// TODO mock
 @SpringBootTest
-class RoleModelServiceTest {
+class RoleModelServiceTest extends AbstractIntegrationTest {
     @Autowired
     RoleModelRepo roleModelRepo;
     @Autowired
     RoleModelService roleModelService;
-
-    @BeforeEach
-    public void clearDb() {
-        roleModelRepo.deleteAll();
-    }
 
     @Test
     public void findAllTest_empty() {
