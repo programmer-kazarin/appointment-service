@@ -29,6 +29,7 @@ class RoleModelServiceMockTest {
     }
 
     @Test
+    void findAllTest() {
         RoleModelEntity role = new RoleModelEntity(1L, "admin", "description");
         when(roleModelRepo.findAll()).thenReturn(List.of(role));
 
