@@ -4,7 +4,6 @@ import com.kazarin.appointment.dto.RoleModelDto;
 import com.kazarin.appointment.entity.RoleModelEntity;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import com.kazarin.appointment.service.impl.RoleModelServiceImpl;
-import com.kazarin.appointment.utils.EntityToDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,6 @@ class RoleModelServiceMockTest {
     }
 
     @Test
-    public void findAllTest() {
         RoleModelEntity role = new RoleModelEntity(1L, "admin", "description");
         when(roleModelRepo.findAll()).thenReturn(List.of(role));
 
@@ -46,7 +44,6 @@ class RoleModelServiceMockTest {
     void findByName() {
         RoleModelEntity role = new RoleModelEntity(1L, "admin", "description");
         when(roleModelRepo.findByName(any())).thenReturn(role);
-
 
         Assertions.assertEquals(role, roleModelService.findByName("admin"));
     }
