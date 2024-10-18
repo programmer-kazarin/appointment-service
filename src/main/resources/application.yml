@@ -24,3 +24,5 @@ spring:
 server:
   servlet:
     context-path: /appointment-service
+coverage:
+  threshold: 0.5

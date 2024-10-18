@@ -31,6 +31,29 @@ jobs:
       run: mvn checkstyle:check
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Run tests with Maven and generate coverage report
+      run: mvn clean verify jacoco:report
+    - name: Extract coverage threshold
+      id: vars
+      run: echo "THRESHOLD=$(grep 'threshold' application.yml | awk '{print $2}')" >> $GITHUB_ENV
+    - name: Check coverage
+      run: |
+        COVERAGE=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
+        TOTAL=$(xmllint --xpath "string(//report/counter[@type='LINE']/@missed)" target/site/jacoco/jacoco.xml)
+        PERCENTAGE=$(echo "$COVERAGE / ($COVERAGE + $TOTAL)" | bc -l)
+        if (( $(echo "$COVERAGE < $THRESHOLD" |bc -l) )); then
+          echo "Coverage ($COVERAGE) is below threshold ($THRESHOLD)"
+          exit 1
+        fi
+        echo "Coverage = $COVERAGE"
+        echo "Total = TOTAL"
+        echo "Percentage = PERCENTAGE"
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: target/site/jacoco
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
