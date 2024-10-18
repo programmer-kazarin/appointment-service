@@ -28,6 +28,17 @@ jobs:
     - name: Generate JaCoCo report
       run: mvn jacoco:report
 
+    - name: Install XML tools
+      run: sudo apt-get install -y libxml2-utils
+
+    - name: Check coverage
+      run: |
+        COVERAGE=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
+        THRESHOLD=0.5
+        if (( $(echo "$COVERAGE < $THRESHOLD" |bc -l) )); then
+          echo "Coverage ($COVERAGE) is below threshold ($THRESHOLD)"
+          exit 1
+        fi
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
