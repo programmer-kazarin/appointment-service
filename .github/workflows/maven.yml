@@ -29,13 +29,20 @@ jobs:
         cache: maven
     - name: Build and run Checkstyle (Maven)
       run: mvn checkstyle:check
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
     - name: Run tests with Maven and generate coverage report
       run: mvn clean verify jacoco:report
+
+    - name: Install XML tools
+      run: sudo apt-get install -y libxml2-utils
+
     - name: Extract coverage threshold
       id: vars
       run: echo "THRESHOLD=$(grep 'threshold' application.yml | awk '{print $2}')" >> $GITHUB_ENV
+
     - name: Check coverage
       run: |
         COVERAGE=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
@@ -48,6 +55,7 @@ jobs:
         echo "Coverage = $COVERAGE"
         echo "Total = TOTAL"
         echo "Percentage = PERCENTAGE"
+
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
