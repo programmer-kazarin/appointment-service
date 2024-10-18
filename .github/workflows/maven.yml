@@ -53,8 +53,8 @@ jobs:
           exit 1
         fi
         echo "Coverage = $COVERAGE"
-        echo "Total = TOTAL"
-        echo "Percentage = PERCENTAGE"
+        echo "Total = $TOTAL"
+        echo "Percentage = $PERCENTAGE"
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
