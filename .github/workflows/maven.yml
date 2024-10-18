@@ -45,15 +45,15 @@ jobs:
 
     - name: Check coverage
       run: |
-        COVERAGE=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
-        TOTAL=$(xmllint --xpath "string(//report/counter[@type='LINE']/@missed)" target/site/jacoco/jacoco.xml)
-        PERCENTAGE=$(echo "$COVERAGE / ($COVERAGE + $TOTAL)" | bc -l)
-        if (( $(echo "$COVERAGE < $THRESHOLD" |bc -l) )); then
-          echo "Coverage ($COVERAGE) is below threshold ($THRESHOLD)"
+        COVERED=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
+        MISSED=$(xmllint --xpath "string(//report/counter[@type='INSTRUCTION']/@missed)" target/site/jacoco/jacoco.xml)
+        PERCENTAGE=$(echo "COVERED / (COVERED + MISSED)" | bc -l)
+        if (( $(echo "COVERED < $THRESHOLD" |bc -l) )); then
+          echo "COVERED (COVERED) is below threshold ($THRESHOLD)"
           exit 1
         fi
-        echo "Coverage = $COVERAGE"
-        echo "Total = $TOTAL"
+        echo "COVERED = COVERED"
+        echo "Missed = MISSED"
         echo "Percentage = $PERCENTAGE"
 
     - name: Upload coverage report
