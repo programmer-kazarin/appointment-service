@@ -28,6 +28,7 @@ class RoleModelServiceTest extends AbstractIntegrationTest {
         roleModelRepo.saveAll(List.of(
                 RoleModelEntity.builder().name("test1").description("test1").build(),
                 RoleModelEntity.builder().name("test2").description("test2").build()));
+
         List<RoleModelDto> actual = roleModelService.findAll();
         Assertions.assertEquals(2, actual.size());
     }

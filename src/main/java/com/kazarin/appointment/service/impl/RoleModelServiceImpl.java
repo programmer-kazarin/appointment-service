@@ -5,7 +5,6 @@ import com.kazarin.appointment.entity.RoleModelEntity;
 import com.kazarin.appointment.repo.RoleModelRepo;
 import com.kazarin.appointment.service.RoleModelService;
 import com.kazarin.appointment.utils.EntityToDto;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
