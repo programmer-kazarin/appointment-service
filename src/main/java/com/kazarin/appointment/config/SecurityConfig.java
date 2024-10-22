@@ -33,8 +33,8 @@ public class SecurityConfig {
                         "FROM employee WHERE login=?"
         );
         manager.setAuthoritiesByUsernameQuery(
-                "select e.login, CONCAT('ROLE_', rm.\"name\")\n" +
-                        "  from employee e \n" +
+                "select e.login, CONCAT('ROLE_', upper(rm.\"name\"))\n" +
+                        "  from employee e\n" +
                         "  join role_model rm on e.role_id = rm.id\n" +
                         " WHERE e.login=?"
         );
