@@ -3,6 +3,7 @@ package com.kazarin.appointment.service.impl;
 import com.kazarin.appointment.dto.EmployeeDto;
 import com.kazarin.appointment.dto.EmployeeMobileDto;
 import com.kazarin.appointment.entity.EmployeeEntity;
+import com.kazarin.appointment.exceptions.AppointmentEntityNotFoundException;
 import com.kazarin.appointment.repo.EmployeeRepo;
 import com.kazarin.appointment.service.EmployeeService;
 import com.kazarin.appointment.service.RoleModelService;
@@ -58,7 +59,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employee) {
         EmployeeEntity employeeFromDb = employeeRepo.findById(employee.getId())
-                .orElseThrow(() -> new IllegalStateException("Employee with id = " + employee.getId() + " not found"));
+                .orElseThrow(() ->
+                        new AppointmentEntityNotFoundException(
+                                "Employee with id = " + employee.getId() + " not found"));
         employeeFromDb.setFio(employee.getFio());
         employeeFromDb.setRole(roleModelService.findByName(employee.getRole()));
         return convertEmployee(employeeFromDb);

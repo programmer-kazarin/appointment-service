@@ -1,6 +1,7 @@
 package com.kazarin.appointment.controller.handler;
 
 import com.kazarin.appointment.dto.ErrorDto;
+import com.kazarin.appointment.exceptions.AppointmentEntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,9 @@ import java.time.OffsetDateTime;
 
 @ControllerAdvice
 public class AppointmentServiceExceptionHandler {
-    @ExceptionHandler(IllegalStateException.class)
+    @ExceptionHandler({AppointmentEntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ErrorDto> handleException(IllegalStateException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorDto> handleException(AppointmentEntityNotFoundException ex, HttpServletRequest request) {
         return getErrorDtoResponseEntity(ex, request, HttpStatus.NOT_FOUND);
     }
 

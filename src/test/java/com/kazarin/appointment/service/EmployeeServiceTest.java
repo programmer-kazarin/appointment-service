@@ -1,6 +1,8 @@
 package com.kazarin.appointment.service;
 
 import com.kazarin.appointment.dto.EmployeeDto;
+import com.kazarin.appointment.exceptions.AppointmentEntityNotFoundException;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,6 +49,6 @@ class EmployeeServiceTest extends AbstractIntegrationTest {
     public void updateEmployeeTest_not_found() {
         initAdminRole();
         EmployeeDto created = EmployeeDto.builder().id(99L).fio("NEW_TEST").role("admin").build();
-        assertThrows(IllegalStateException.class, () -> employeeService.updateEmployee(created));
+        assertThrows(AppointmentEntityNotFoundException.class, () -> employeeService.updateEmployee(created));
     }
 }
