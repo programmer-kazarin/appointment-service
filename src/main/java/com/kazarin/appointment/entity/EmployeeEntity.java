@@ -24,4 +24,10 @@ public class EmployeeEntity {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleModelEntity role;
+
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "password")
+    private String password;
 }

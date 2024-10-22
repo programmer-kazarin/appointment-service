@@ -1,5 +1,6 @@
 package com.kazarin.appointment.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,22 +11,50 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@Slf4j
 public class SecurityConfig {
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        manager.setUsersByUsernameQuery(
+                "select login, \"password\", true enabled " +
+                        "FROM employee WHERE login=?"
+        );
+        manager.setAuthoritiesByUsernameQuery(
+                "select e.login, CONCAT('ROLE_', rm.\"name\")\n" +
+                        "  from employee e \n" +
+                        "  join role_model rm on e.role_id = rm.id\n" +
+                        " WHERE e.login=?"
+        );
+        return manager;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new Sha256PasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http,
+                                             DataSource dataSource,
+                                             PasswordEncoder passwordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.inMemoryAuthentication()
-                .withUser("user").password("{noop}1234").roles("USER")
-                .and()
-                .withUser("root").password("{noop}12345").roles("USER", "ADMIN");
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService(dataSource))
+                .passwordEncoder(passwordEncoder);
         return authenticationManagerBuilder.build();
     }
 
@@ -33,12 +62,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers( "/**").hasRole("ADMIN").anyRequest().authenticated()
+                        .requestMatchers("/**").hasRole("ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable());
-
         return http.build();
     }
 }
