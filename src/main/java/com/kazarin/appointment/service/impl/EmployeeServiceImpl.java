@@ -57,6 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public EmployeeDto updateEmployee(EmployeeDto employee) {
         EmployeeEntity employeeFromDb = employeeRepo.findById(employee.getId())
                 .orElseThrow(() ->
