@@ -24,9 +24,8 @@ public class AbstractIntegrationTest {
         log.debug("BeforeEach finish");
     }
 
-    protected void initAdmin() {
+    protected void initAdminRole() {
         roleModelRepo.saveAll(List.of(
                 RoleModelEntity.builder().name("admin").description("test1").build()));
     }
-
 }

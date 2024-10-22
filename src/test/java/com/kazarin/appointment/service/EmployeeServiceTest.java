@@ -16,21 +16,37 @@ class EmployeeServiceTest extends AbstractIntegrationTest {
     private EmployeeService employeeService;
 
     @Test
-    void findAllTest() {
+    public void findAllTest() {
         List<EmployeeDto> actual = employeeService.findAll();
         assertEquals(0, actual.size());
     }
 
     @Test
-    void findByIdTest_empty() {
+    public void findByIdTest_empty() {
         Optional<EmployeeDto> actual = employeeService.getEmployeeById(9L);
         assertEquals(Optional.empty(), actual);
     }
 
     @Test
-    void createEmployeeTest() {
-        initAdmin();
+    public void createEmployeeTest() {
+        initAdminRole();
         EmployeeDto actual = employeeService.createEmployee(EmployeeDto.builder().fio("TEST").role("admin").build());
         assertNotNull(actual);
+    }
+
+    @Test
+    public void updateEmployeeTest() {
+        initAdminRole();
+        EmployeeDto created = employeeService.createEmployee(EmployeeDto.builder().fio("TEST").role("admin").build());
+        created.setFio("NEW_TEST");
+        EmployeeDto actual = employeeService.updateEmployee(created);
+        assertEquals("NEW_TEST", actual.getFio());
+    }
+
+    @Test
+    public void updateEmployeeTest_not_found() {
+        initAdminRole();
+        EmployeeDto created = EmployeeDto.builder().id(99L).fio("NEW_TEST").role("admin").build();
+        assertThrows(IllegalStateException.class, () -> employeeService.updateEmployee(created));
     }
 }

@@ -33,7 +33,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public EmployeeDto createBranch(@RequestBody EmployeeDto employee) {
-        return employeeService.createEmployee(employee);
+    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employee) {
+        return ResponseEntity.ok(employeeService.createEmployee(employee));
+    }
+
+    @PutMapping("/employees")
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employee) {
+        return ResponseEntity.ok(employeeService.updateEmployee(employee));
     }
 }

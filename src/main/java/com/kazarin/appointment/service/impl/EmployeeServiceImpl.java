@@ -54,4 +54,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity saved = employeeRepo.save(newEmployee);
         return convertEmployee(saved);
     }
+
+    @Override
+    public EmployeeDto updateEmployee(EmployeeDto employee) {
+        EmployeeEntity employeeFromDb = employeeRepo.findById(employee.getId())
+                .orElseThrow(() -> new IllegalStateException("Employee with id = " + employee.getId() + " not found"));
+        employeeFromDb.setFio(employee.getFio());
+        employeeFromDb.setRole(roleModelService.findByName(employee.getRole()));
+        return convertEmployee(employeeFromDb);
+    }
 }

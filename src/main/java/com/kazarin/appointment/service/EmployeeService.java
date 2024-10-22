@@ -14,4 +14,6 @@ public interface EmployeeService {
     Optional<EmployeeMobileDto> getEmployeeByIdForMobile(Long id);
 
     EmployeeDto createEmployee(EmployeeDto employee);
+
+    EmployeeDto updateEmployee(EmployeeDto employee);
 }
