@@ -8,6 +8,6 @@ Configuration:
         pattern: "%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n"
   Loggers:
     Root:
-      level: INFO
+      level: DEBUG
       AppenderRef:
         ref: Console
