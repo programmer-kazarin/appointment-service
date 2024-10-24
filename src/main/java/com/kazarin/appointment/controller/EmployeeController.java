@@ -16,8 +16,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/employees")
-    List<EmployeeDto> findAll() {
-        return employeeService.findAll();
+    ResponseEntity<List<EmployeeDto>> findAll() {
+        return ResponseEntity.ok(employeeService.findAll());
     }
 
     @GetMapping("/ui/employees/{id}")
