@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.kazarin.appointment.utils.EntityToDto.convertEmployee;
+import static com.kazarin.appointment.utils.PasswordGenerator.encodePassword;
+import static com.kazarin.appointment.utils.PasswordGenerator.generatePassword;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,6 +26,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepo employeeRepo;
     @Autowired
     private RoleModelService roleModelService;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -48,11 +52,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employee) {
+        String rawPassword = generatePassword();
         EmployeeEntity newEmployee = EmployeeEntity.builder()
                 .fio(employee.getFio())
                 .role(roleModelService.findByName(employee.getRole()))
+                .login(employee.getLogin())
+                .password(encodePassword(rawPassword))
                 .build();
         EmployeeEntity saved = employeeRepo.save(newEmployee);
+        notificationService.notifyEmployeeAccountCreated(saved.getId(), saved.getLogin(), rawPassword);
         return convertEmployee(saved);
     }
 

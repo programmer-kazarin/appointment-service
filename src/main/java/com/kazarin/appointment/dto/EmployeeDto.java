@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 public class EmployeeDto {
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("fio")
+    @JsonProperty(value = "fio", required = true)
     private String fio;
-    @JsonProperty("role")
+    @JsonProperty(value = "role", required = true)
     private String role;
+    @JsonProperty(value = "login", required = true)
+    private String login;
 }

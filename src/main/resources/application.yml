@@ -7,7 +7,7 @@ spring:
     default-schema: ${DB_SCHEMA:appointment}
   jpa:
     open-in-view: false
-    show-sql: ${SHOW_SQL:true}
+    show-sql: ${SHOW_SQL:false}
     properties:
       hibernate:
         format_sql: true
