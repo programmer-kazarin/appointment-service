@@ -31,8 +31,12 @@ class EmployeeServiceTest extends AbstractIntegrationTest {
     @Test
     public void createEmployeeTest() {
         initAdminRole();
-        EmployeeDto actual = employeeService.createEmployee(EmployeeDto.builder().fio("TEST").role("admin").build());
+        EmployeeDto actual = employeeService.createEmployee(EmployeeDto.builder().fio("TEST").role("admin").login("test_login").build());
         assertNotNull(actual);
+        assertNotNull(actual.getId());
+        assertEquals("TEST", actual.getFio());
+        assertEquals("admin", actual.getRole());
+        assertEquals("test_login", actual.getLogin());
     }
 
     @Test

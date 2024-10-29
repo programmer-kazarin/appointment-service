@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Kazarin" id="alter-employee-add-login-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="employee" columnName="login"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="employee">
+            <column name="login" type="VARCHAR(50)" remarks="Логин сотрудника" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Kazarin" id="alter-employee-add-password-03">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="employee" columnName="password"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="employee">
+            <column name="password" type="VARCHAR(1024)" remarks="Пароль сотрудника"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Kazarin" id="add-admin-login-03">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(1) FROM employee where login = 'admin';</sqlCheck>
+        </preConditions>
+        <sql splitStatements="true">
+            update employee
+            set login = 'admin', "password" = 'WZRHGrsBESr8wYFZ9sx0tPURuZgG2lmzyvWpwXPKz8U='
+            where role_id = (select id from role_model where "name" = 'admin' limit 1);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

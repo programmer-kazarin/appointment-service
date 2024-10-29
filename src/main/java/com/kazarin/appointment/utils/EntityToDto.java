@@ -24,6 +24,7 @@ public class EntityToDto {
                 .id(employee.getId())
                 .fio(employee.getFio())
                 .role(employee.getRole().getName())
+                .login(employee.getLogin())
                 .build();
     }
 
