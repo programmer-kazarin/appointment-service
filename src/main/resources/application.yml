@@ -21,8 +21,14 @@ spring:
     level:
       root: DEBUG
       liquibase: DEBUG
+  kafka:
+    bootstrap-servers: localhost:9092
 server:
   servlet:
     context-path: /appointment-service
 coverage:
   threshold: 0.5
+integration:
+  employee:
+    enabled: true
+    topic: employee-event

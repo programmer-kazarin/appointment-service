@@ -12,8 +12,14 @@ spring:
       hibernate:
         format_sql: true
         highlight_sql: true
+  kafka:
+    bootstrap-servers: no
 #  logging:
 #    level:
 #      root: DEBUG
   liquibase:
     change-log: classpath:/db/postgres/changelog-master.xml
+integration:
+  employee:
+    enabled: false
+    topic: test
