@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Kazarin" id="customer-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="customer"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Клиенты" tableName="customer">
+            <column name="id" type="SERIAL" remarks="Идентификатор Клиента">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fio" type="VARCHAR(256)" remarks="ФИО клиента">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mobile" type="VARCHAR(11)" remarks="Мобильный телефон клиента">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(11)" remarks="Электронная почта клиента">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

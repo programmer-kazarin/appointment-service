@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+  #  Служит для координации Kafka
   zookeeper:
     image: confluentinc/cp-zookeeper:5.1.2
     environment:
@@ -22,7 +23,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-
+  # Управляет схемами данных в Kafka
   schema-registry:
     image: confluentinc/cp-schema-registry:5.1.2
     depends_on:
@@ -51,7 +52,7 @@ services:
       - ksql-server
     entrypoint: /bin/sh
     tty: true
-
+  # Предоставляет REST интерфейс для взаимодействия с Kafka.
   rest-proxy:
     image: confluentinc/cp-kafka-rest:5.1.2
     depends_on:

@@ -5,4 +5,5 @@
     <include file="2024/10/09/create-role_model.xml" relativeToChangelogFile="true"/>
     <include file="2024/10/10/create-employee.xml" relativeToChangelogFile="true"/>
     <include file="2024/10/22/alter-employee.xml" relativeToChangelogFile="true"/>
+    <include file="2024/10/30/create-customer.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
