@@ -23,12 +23,17 @@ spring:
       liquibase: DEBUG
   kafka:
     bootstrap-servers: localhost:9092
+    consumer:
+      group-id: appointment-group
+      auto-offset-reset: earliest
 server:
   servlet:
     context-path: /appointment-service
 coverage:
   threshold: 0.5
 integration:
-  employee:
+  employee-info:
     enabled: true
     topic: employee-event
+  client-info:
+    topic: client-event

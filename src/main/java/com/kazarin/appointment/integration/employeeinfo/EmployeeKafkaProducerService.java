@@ -1,4 +1,4 @@
-package com.kazarin.appointment.integration.employeekafka;
+package com.kazarin.appointment.integration.employeeinfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeKafkaProducerService {
-    @Value("${integration.employee.topic}")
+    @Value("${integration.employee-info.topic}")
     private String topic;
 
     @Autowired

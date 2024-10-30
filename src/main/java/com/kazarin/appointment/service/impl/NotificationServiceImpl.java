@@ -1,6 +1,6 @@
 package com.kazarin.appointment.service.impl;
 
-import com.kazarin.appointment.integration.employeekafka.EmployeeKafkaProducerService;
+import com.kazarin.appointment.integration.employeeinfo.EmployeeKafkaProducerService;
 import com.kazarin.appointment.service.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class NotificationServiceImpl implements NotificationService {
 
-    @Value("${integration.employee.enabled}")
+    @Value("${integration.employee-info.enabled}")
     private Boolean integrationEmployeeEnabled;
 
     @Autowired

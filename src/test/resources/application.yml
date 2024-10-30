@@ -13,13 +13,18 @@ spring:
         format_sql: true
         highlight_sql: true
   kafka:
-    bootstrap-servers: no
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: test
+      auto-offset-reset: none
 #  logging:
 #    level:
 #      root: DEBUG
   liquibase:
     change-log: classpath:/db/postgres/changelog-master.xml
 integration:
-  employee:
+  employee-info:
     enabled: false
     topic: test
+  client-info:
+    topic: client-event
