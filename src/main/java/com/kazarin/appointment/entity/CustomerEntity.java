@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -26,4 +28,7 @@ public class CustomerEntity {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "external_id", nullable = false, unique = true)
+    private UUID externalId;
 }
