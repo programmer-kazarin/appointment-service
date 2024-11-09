@@ -1,5 +1,6 @@
 package com.kazarin.appointment.integration.employeeinfo;
 
+import com.kazarin.avro.EmployeeCreatedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,9 +12,9 @@ public class EmployeeKafkaProducerService {
     private String topic;
 
     @Autowired
-    private KafkaTemplate<String, String> employeeKafkaTemplate;
+    private KafkaTemplate<String, EmployeeCreatedMessage> employeeKafkaTemplate;
 
-    public void sendMessage(String message) {
+    public void sendMessage(EmployeeCreatedMessage message) {
         employeeKafkaTemplate.send(topic, message);
     }
 }

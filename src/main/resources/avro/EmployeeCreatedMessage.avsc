@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "EmployeeCreatedMessage",
+  "namespace": "com.kazarin.avro",
+  "fields": [
+    {"name": "fio", "type": "string"},
+    {"name": "role", "type": "string"},
+    {"name": "login", "type": "string"}
+  ]
+}

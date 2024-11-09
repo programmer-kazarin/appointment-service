@@ -61,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .password(encodePassword(rawPassword))
                 .build();
         EmployeeEntity saved = employeeRepo.save(newEmployee);
-        notificationService.notifyEmployeeAccountCreated(saved.getId(), saved.getLogin(), rawPassword);
+        notificationService.notifyEmployeeAccountCreated(saved.getFio(), saved.getLogin(), saved.getRole().getName());
         return convertEmployee(saved);
     }
 

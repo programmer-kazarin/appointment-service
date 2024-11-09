@@ -2,6 +2,7 @@ package com.kazarin.appointment.service.impl;
 
 import com.kazarin.appointment.integration.employeeinfo.EmployeeKafkaProducerService;
 import com.kazarin.appointment.service.NotificationService;
+import com.kazarin.avro.EmployeeCreatedMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +24,16 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Async
     @Override
-    public void notifyEmployeeAccountCreated(Long employeeId, String login, String password) {
-        log.info("NOTIFICATION STUB to employee id={}, login='{}', password='{}'", employeeId, login, password);
+    public void notifyEmployeeAccountCreated(String fio, String login, String role) {
+        log.info("NOTIFICATION STUB to employee fio={}, login='{}', role='{}'", fio, login, role);
         if (integrationEmployeeEnabled) {
             employeeKafkaProducerService.sendMessage(
-                    String.format("New employee created: id = %d; , login='%s', password='%s'",
-                            employeeId, login, password));
+                    EmployeeCreatedMessage.newBuilder()
+                            .setFio(fio)
+                            .setLogin(login)
+                            .setRole(role)
+                            .build());
+
         }
     }
 }
